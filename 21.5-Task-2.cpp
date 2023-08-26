@@ -2,7 +2,7 @@
 #include <vector>
 
 //Перечисление построек
-enum bildingType
+enum BildingType
 {
     house,
     bath,
@@ -14,7 +14,7 @@ enum bildingType
 };
 
 //Перечисление комнат
-enum roomType
+enum RoomType
 {
     bedroom,
     kitchen,
@@ -26,7 +26,7 @@ enum roomType
 //Структура комнаты
 struct Room
 {
-    int roomTape;
+    RoomType room;
     int roomSquare;
 };
 
