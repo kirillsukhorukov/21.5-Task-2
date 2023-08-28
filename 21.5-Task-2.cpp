@@ -82,7 +82,7 @@ bool check_int(std::string &num)
     return true;
 }
 
-int input_int (std::string str)
+int input_int (const std::string &str)
 {
     std::string temp;
     
@@ -106,12 +106,12 @@ BildingType input_bilding_type ()
         error = false;
         std::cout << "Enter the type of bilding (house, bath, garage, barn, paddock, veranda): ";
         std::getline(std::cin,str);
-        if (str == "house") return house;
-        else if (str == "bath") return bath;
-        else if (str == "garage") return garage;
-        else if (str == "barn") return barn;
-        else if (str == "paddock") return paddock;
-        else if (str == "veranda") return veranda;
+        if (str == "house") return BildingType::house;
+        else if (str == "bath") return BildingType:: bath;
+        else if (str == "garage") return BildingType::garage;
+        else if (str == "barn") return BildingType::barn;
+        else if (str == "paddock") return BildingType::paddock;
+        else if (str == "veranda") return BildingType::veranda;
         else 
         {
             std::cerr <<"Error! Repeat input." << std::endl;
@@ -130,11 +130,11 @@ RoomType input_room_type ()
         error = false;
         std::cout << "Enter the type of room (bedroom, kitchen, bathroom, childrens, living room): ";
         std::getline(std::cin,str);
-        if (str == "bedroom") return bedroom;
-        else if (str == "kitchen") return kitchen;
-        else if (str == "bathroom") return bathroom;
-        else if (str == "childrens") return childrens;
-        else if (str == "living room") return livingRoom;
+        if (str == "bedroom") return RoomType::bedroom;
+        else if (str == "kitchen") return RoomType::kitchen;
+        else if (str == "bathroom") return RoomType::bathroom;
+        else if (str == "childrens") return RoomType::childrens;
+        else if (str == "living room") return RoomType::livingRoom;
         else 
         {
             std::cerr <<"Error! Repeat input." << std::endl;
@@ -158,9 +158,8 @@ void input_village_info(std::vector <Plot> &village)
         for (int b=0; b<village[v].bildingCount; b++)
         {
             std::cout << "--- Entering bilding number " << b+1 << " information ---" << std::endl;
+            village[v].bildings[b].bildingSquare = input_int("Enter the square of bilding: ");
             village[v].bildings[b].bildingType = input_bilding_type();
-            village[v].plotNumber = v+1;
-            village[v].plotSquare = input_int("Enter the square of plot: ");
         }
     }
 }
