@@ -10,8 +10,7 @@ enum BildingType
     garage,
     barn,
     paddock,
-    veranda,
-    toilet    
+    veranda  
 };
 
 //Перечисление комнат
@@ -28,34 +27,37 @@ enum RoomType
 struct Room
 {
     RoomType roomType;
-    int roomSquare;
+    int roomSquare=0;
 };
 
 //Структура этажа
 struct Floor
 {
-    int roomCount;
-    int ceilingHeight;
-    std::vector <Room> rooms;
+    Floor():rooms(roomCount){};
+    int roomCount=1;
+    int ceilingHeight=100;
+    std::vector <Room> rooms{};
 };
 
 //Структура строения
 struct Bilding
 {
+    Bilding():floors(floorCount){};
     BildingType bildingType;
     int floorCount=1;
-    int bildingSquare;
+    int bildingSquare=0;
     bool stove = false;
-    std::vector <Floor> floors;
+    std::vector <Floor> floors{};
 };
 
 //Структура участка
 struct Plot
 {
-int bildingCount;
-int plotNumber;
-int plotSquare;
-std::vector <Bilding> bildings;
+    Plot():bildings(bildingCount){}
+    int bildingCount=0;
+    int plotNumber=0;
+    int plotSquare=0;
+    std::vector <Bilding> bildings;
 };
 
 //Функция проверки строки с целым числом
@@ -153,6 +155,10 @@ void input_village_info(std::vector <Plot> &village)
         village[v].bildingCount = input_int("Enter the number of bildings: ");
         village[v].plotNumber = v+1;
         village[v].plotSquare = input_int("Enter the square of plot: ");
+        std::cout <<std::endl;
+
+        //Расширение вектора до размера, соответствующего количеству зданий на участке
+        village[v].bildings.resize(village[v].bildingCount);
 
         //Ввод данных о зданиях
         for (int b=0; b<village[v].bildingCount; b++)
@@ -160,6 +166,7 @@ void input_village_info(std::vector <Plot> &village)
             std::cout << "--- Entering bilding number " << b+1 << " information ---" << std::endl;
             village[v].bildings[b].bildingSquare = input_int("Enter the square of bilding: ");
             village[v].bildings[b].bildingType = input_bilding_type();
+            std::cout <<std::endl;
         }
     }
 }
@@ -170,9 +177,11 @@ int main()
     
     //Ввод количества участков
     int plotCount = input_int("Enter the number of plots: ");
+    std::cout <<std::endl;
 
     //Инициализация вектора поселка
     std::vector <Plot> village(plotCount);
+    //village.push_back();
     
     //Ввод данных о поселке
     input_village_info(village);
